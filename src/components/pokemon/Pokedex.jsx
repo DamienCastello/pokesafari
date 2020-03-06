@@ -7,25 +7,29 @@ import url from '../../utils/url';
 
 
 export default class Pokemons extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             pokemons: []
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         Axios.get(url.pokemonsUrl)
-        .then(response => {
-            this.setState({pokemons: response.data.results})
-        })
-        .catch(err => console.log(err))
+            .then(response => {
+                this.setState({ pokemons: response.data.results })
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
-        console.log('stateOfPokemons Component:', this.state)
         return (
             <div className="Pokedex">
+                <button
+                    onClick={() => this.props.history.push(`/`)}
+                    style={{ marginRight: '20px' }}>
+                    <img src={require('../styles/planet.png')} alt="map_icon" style={{ width: '100px' }} />
+                </button>
                 <PokeList pokemons={this.state.pokemons} />
             </div>
         )

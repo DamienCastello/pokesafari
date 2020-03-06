@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Pokedex from './pokemon/Pokedex';
 import Pokemon from './pokemon/Pokemon';
 import World from './world/index';
+import './styles/app.css';
 
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
         <Switch>
           <Route path="/pokedex" component={Pokedex}/>
           <Route path="/pokemon/:id" component={Pokemon}/>
-          <Route path="/map" component={World} />
+          <Route path="/" component={World} />
         </Switch>
       </div>
     );

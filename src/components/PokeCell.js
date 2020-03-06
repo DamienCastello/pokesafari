@@ -26,17 +26,44 @@ class PokeCell extends Component {
 
 
   render() {
-    console.log('stateOfPokeCell component', this.state);
-    console.log('propsOfPokeCell component', this.props.pokemons);
-    console.log('pokemonOfPokeCell component', this.props.pokemon);
-    console.log('test', this.props)
+    console.log(localStorage["catched"].split(","))
+    console.log(localStorage["escaped"].split(","))
+    console.log(this.props.id)
+    let unknown = false
+    /*for(let i=0;i<localStorage["catched"].split(',').length;i++){
+      if(localStorage["catched"][i]===this.props.id){
+        unknown = true;
+      } 
+    }
+    for(let j=0;localStorage["escaped"].split(',').length;j++){
+      if(localStorage["escaped"][j]===this.props.id){
+        unknown = true;
+      }
+    }*/
+    let id = this.props.id;
+    id = (id-1).toString();
+    localStorage["catched"].split(",").map((catched) => catched === id ? unknown = true : unknown);
+    localStorage["escaped"].split(",").map((escaped) => escaped === id ? unknown = true : unknown);
+    console.log(unknown)
+    console.log('id', typeof id)
     return (
+
       <div>
+        { unknown
+        ? 
         <button 
         onClick={() => this.props.history.push(`/pokemon/${this.props.id}`)}
         className="poke-cell">
-          <img src={this.state.pokemon.sprites.front_default} alt="Logo" />
-        </button>
+          <img src={this.state.pokemon.sprites.front_default} alt="Logo" style={{backgroundColor: "#185400", backgroundImage: 'url("https://www.transparenttextures.com/patterns/bright-squares.png")'}}/>
+        </button> 
+        : 
+        <button 
+        className="poke-cell">
+          <img src={this.state.pokemon.sprites.front_default} alt="Logo" style={{backgroundColor: "#540300", backgroundImage: 'url("https://www.transparenttextures.com/patterns/bright-squares.png")'}}/>
+        </button>  
+      
+        }
+        
       </div>
     )
   }

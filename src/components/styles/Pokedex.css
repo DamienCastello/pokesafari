@@ -3,10 +3,11 @@
   align-items: center;
   justify-content: center;
   width: 650px;
-  height: 400px;
+  height: 550px;
   padding-left: 10px;
   margin: 50px auto;
   background-color: #FE0065;
+  background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
   border-radius: 10px;
   box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
 }

@@ -73,7 +73,6 @@ export default class Pokemon extends Component {
 
 
     render() {
-        console.log('proooops', this.state)
         return (
             <div className="Pokedex">
             <button 

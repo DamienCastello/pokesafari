@@ -16,7 +16,6 @@ export default function PokeCard(props) {
                 </Row>
                 <Row>
                     {props.pokemon.types.map((type, idx) => {
-                        console.log(props.getImgFromType(type.type.name))
                         return (
                             <Col xs={6}>
                                 <p>Type : {type.type.name}</p>
