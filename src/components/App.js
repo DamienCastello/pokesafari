@@ -15,7 +15,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <Switch>
           <Route path="/pokedex" component={Pokedex}/>
           <Route path="/pokemon/:id" component={Pokemon}/>

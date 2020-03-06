@@ -26,28 +26,15 @@ class PokeCell extends Component {
 
 
   render() {
-    console.log(localStorage["catched"].split(","))
-    console.log(localStorage["escaped"].split(","))
-    console.log(this.props.id)
+    //unknown means catched or escaped pokemons
     let unknown = false
-    /*for(let i=0;i<localStorage["catched"].split(',').length;i++){
-      if(localStorage["catched"][i]===this.props.id){
-        unknown = true;
-      } 
-    }
-    for(let j=0;localStorage["escaped"].split(',').length;j++){
-      if(localStorage["escaped"][j]===this.props.id){
-        unknown = true;
-      }
-    }*/
     let id = this.props.id;
+    //Need to compare only strings
     id = (id-1).toString();
     localStorage["catched"].split(",").map((catched) => catched === id ? unknown = true : unknown);
     localStorage["escaped"].split(",").map((escaped) => escaped === id ? unknown = true : unknown);
-    console.log(unknown)
-    console.log('id', typeof id)
     return (
-
+    //conditional rendering on unknown boolean
       <div>
         { unknown
         ? 
