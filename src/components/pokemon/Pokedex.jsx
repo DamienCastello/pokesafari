@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PokeList from '../PokeList';
-import '../styles/Pokemons.css';
+import '../styles/Pokedex.css';
 import Axios from 'axios';
 import url from '../../utils/url';
 
@@ -25,7 +25,7 @@ export default class Pokemons extends Component {
     render() {
         console.log('stateOfPokemons Component:', this.state)
         return (
-            <div className="Pokemons">
+            <div className="Pokedex">
                 <PokeList pokemons={this.state.pokemons} />
             </div>
         )
