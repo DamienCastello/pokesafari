@@ -3,6 +3,7 @@ import PokeList from '../PokeList';
 import '../styles/Pokedex.css';
 import Axios from 'axios';
 import url from '../../utils/url';
+import store from '../../store';
 
 
 
@@ -23,6 +24,7 @@ export default class Pokemons extends Component {
     }
 
     render() {
+        console.log("CURRENT REDUX STATE IN POKEDEX:", store.getState());
         return (
             <div className="Pokedex">
                 <button

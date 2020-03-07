@@ -5,6 +5,11 @@ import PokemonsLocation from '../../utils/mock';
 import Axios from 'axios';
 import url from '../../utils/url';
 import PokedexButton from '../pokemon/PokedexButton';
+import { updateCatched } from '../../store/actions/catched';
+import { updateEscaped } from '../../store/actions/escaped';
+
+import { connect } from 'react-redux';
+import store from '../../store';
 
 
 class World extends Component {
@@ -26,12 +31,16 @@ class World extends Component {
         this.props.history.push('/pokedex');
     }
 
-
     render() {
+        console.log("CURRENT REDUX STATE IN WORLD:", store.getState());
+        console.log("STATE IN WORLD:", this.state)
         return (
             <div className="leaflet-container">
                 <div style={{ position: "absolute", top: "10px", left: "50px", zIndex: 1 }}>
-                    <PokedexButton redirectPokedex={this.redirectPokedex} />
+                    <PokedexButton
+                        redirectPokedex={this.redirectPokedex}
+                        catched={this.state.catched}
+                        escaped={this.state.escaped} />
                 </div>
                 <Map center={[43.6, 3.8833]} zoom={12} dragging={true} animate={true} style={{ zIndex: 0 }}>
                     <TileLayer
@@ -64,20 +73,18 @@ class World extends Component {
                                 <img src={this.state.pokemons[idx]} alt={"poke-preview"} style={{ width: "100px", height: "100px" }} />
                                 <p>Let's Catch him !</p>
                                 <button onClick={() => {
-                                    if(random < 0.50){
+                                    if (random < 0.50) {
                                         alert("Yes ! I got him !");
                                         this.setState({ catched: [data["id"], ...this.state.catched] });
                                     } else {
-                                        alert("Oh damn ! He escaped !") ;
+                                        alert("Oh damn ! He escaped !");
                                         this.setState({ escaped: [data["id"], ...this.state.escaped] });
-                                    }    
+                                    }
                                 }}>
                                     <img src={require("../styles/pokeball.png")} alt={"pokeball-icon"} style={{ width: "40px", height: "40px" }} />
                                 </button>
                             </div>
                         </Popup>
-
-
                     })}
                 </Map>
             </div>
@@ -85,5 +92,13 @@ class World extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
 
-export default World;
+})
+
+const mapDispatchToProps = {
+    updateCatched,
+    updateEscaped
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(World)
