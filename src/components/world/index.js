@@ -11,7 +11,6 @@ import { updateEscaped } from '../../store/actions/escaped';
 import { connect } from 'react-redux';
 import store from '../../store';
 
-
 class World extends Component {
     constructor() {
         super();
@@ -32,6 +31,8 @@ class World extends Component {
     }
 
     render() {
+        console.log(this.props, 'here')
+
         console.log("CURRENT REDUX STATE IN WORLD:", store.getState());
         console.log("STATE IN WORLD:", this.state)
         return (
@@ -67,9 +68,10 @@ class World extends Component {
 
                     {this.state.activePokemon.map((data, idx) => {
                         let random = Math.random();
-                        return <Popup key={data["id"]} position={data["location"]}>
+                        //FIX BUG HERE: Need to make keys unique but template string always interprets values ...
+                            return <Popup key={data["id"]} position={data["location"]}>
                             <div style={this.state.catched.includes(data["id"]) ? { backgroundColor: 'green' } : this.state.escaped.includes(data["id"]) ? { backgroundColor: 'red' } : {}}>
-                                <h2>{data["id"]}</h2>
+                                <h2>{data["id"]+1}</h2>
                                 <img src={this.state.pokemons[idx]} alt={"poke-preview"} style={{ width: "100px", height: "100px" }} />
                                 <p>Let's Catch him !</p>
                                 <button onClick={() => {
@@ -85,6 +87,8 @@ class World extends Component {
                                 </button>
                             </div>
                         </Popup>
+                        
+                        
                     })}
                 </Map>
             </div>

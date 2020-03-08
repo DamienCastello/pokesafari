@@ -23,3 +23,9 @@
 
 - Persist storage to keep a save.
 - upgrade of capture system.
+- upgrade architecture of app (folders and files).
+
+
+## Bugs to fix : 
+
+- In World/index.js after comment to fix it: Encounter a second time a same pokemon stop the spawn of others pokemons (cause key of popup).
