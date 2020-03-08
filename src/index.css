@@ -5,7 +5,18 @@
 html {
     background-color: #543b3b;
     background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
+    border: 40px 5px 5px 5px solid black;
+    border-radius: 20px;
 }
+
+#header {
+  width: 100%;
+  background-color: black;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+};
 
 
 body {

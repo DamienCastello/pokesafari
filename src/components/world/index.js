@@ -37,7 +37,7 @@ class World extends Component {
         console.log("STATE IN WORLD:", this.state)
         return (
             <div className="leaflet-container">
-                <div style={{ position: "absolute", top: "10px", left: "50px", zIndex: 1 }}>
+                <div style={{ position: "absolute", top: "110px", left: "50px", zIndex: 1 }}>
                     <PokedexButton
                         redirectPokedex={this.redirectPokedex}
                         catched={this.state.catched}
