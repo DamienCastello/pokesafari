@@ -4,7 +4,6 @@ import Pokedex from './pokemon/Pokedex';
 import Pokemon from './pokemon/Pokemon';
 import World from './world/index';
 import './styles/app.css';
-import store from '../store';
 import { connect } from 'react-redux';
 
 
@@ -19,16 +18,16 @@ class App extends Component {
 
 
   render() {
-  
-      return (
-        <div className="App">
-          <Switch>
-            <Route path="/pokedex" component={Pokedex}/>
-            <Route path="/pokemon/:id" component={Pokemon}/>
-            <Route path="/" component={World} />
-          </Switch>
-        </div>
-      )
+
+    return (
+      <div className="App">
+        <Switch>
+          <Route path="/pokedex" component={Pokedex} />
+          <Route path="/pokemon/:id" component={Pokemon} />
+          <Route path="/" component={World} />
+        </Switch>
+      </div>
+    )
   }
 }
 
@@ -37,7 +36,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
