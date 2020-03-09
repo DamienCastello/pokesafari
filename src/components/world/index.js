@@ -5,11 +5,11 @@ import PokemonsLocation from '../../utils/mock';
 import Axios from 'axios';
 import url from '../../utils/url';
 import PokedexButton from '../pokemon/PokedexButton';
+import RestartButton from '../pokemon/RestartButton';
 import { updateCatched } from '../../store/actions/catched';
 import { updateEscaped } from '../../store/actions/escaped';
 
 import { connect } from 'react-redux';
-import store from '../../store';
 
 class World extends Component {
     constructor() {
@@ -23,25 +23,53 @@ class World extends Component {
     }
 
     redirectPokedex = () => {
+
+
+
+        if (this.state.catched.length > 0) {
+            if (localStorage.getItem("catched") !== null) {
+                localStorage.setItem("catched", `${localStorage.getItem("catched")},${this.state.catched}`)
+            }
+            localStorage.setItem('catched', this.state.catched)
+        }
+
+
+
+        if (this.state.escaped.length > 0) {
+            if (localStorage.getItem("escaped") !== null) {
+                localStorage.setItem("escaped", localStorage.getItem("escaped") + "," + (this.state.escaped))
+            }
+            localStorage.setItem('escaped', this.state.escaped)
+        }
+        //localStorage.setItem('catched', localStorage.getItem("catched") === null ? this.state.catched : localStorage.getItem("catched") + "," + (this.state.catched));
+        //localStorage.setItem('escaped', localStorage.getItem("escaped") === null ? this.state.escaped : localStorage.getItem("escaped") + "," + (this.state.escaped));
+        this.props.history.push('/pokedex');
+
+    };
+
+    restart = () => {
         localStorage.removeItem('catched');
         localStorage.removeItem('escaped');
-        localStorage.setItem('catched', this.state.catched);
-        localStorage.setItem('escaped', this.state.escaped);
-        this.props.history.push('/pokedex');
-    }
+    };
 
     render() {
-        console.log(this.props, 'here')
-
-        console.log("CURRENT REDUX STATE IN WORLD:", store.getState());
-        console.log("STATE IN WORLD:", this.state)
         return (
             <div className="leaflet-container">
                 <div style={{ position: "absolute", top: "110px", left: "50px", zIndex: 1 }}>
-                    <PokedexButton
-                        redirectPokedex={this.redirectPokedex}
-                        catched={this.state.catched}
-                        escaped={this.state.escaped} />
+                    <div className="btn-container">
+                        <PokedexButton
+                            redirectPokedex={this.redirectPokedex}
+                            catched={this.state.catched}
+                            escaped={this.state.escaped} />
+                        <p>Go pokedex</p>
+                    </div>
+                </div>
+                <div style={{ position: "absolute", top: "110px", left: "140px", zIndex: 1 }}>
+                    <div className="btn-container">
+                        <RestartButton
+                            restart={this.restart} />
+                        <p>Restart game</p>
+                    </div>
                 </div>
                 <Map center={[43.6, 3.8833]} zoom={12} dragging={true} animate={true} style={{ zIndex: 0 }}>
                     <TileLayer
@@ -69,9 +97,9 @@ class World extends Component {
                     {this.state.activePokemon.map((data, idx) => {
                         let random = Math.random();
                         //FIX BUG HERE: Need to make keys unique but template string always interprets values ...
-                            return <Popup key={data["id"]} position={data["location"]}>
+                        return <Popup key={data["id"]} position={data["location"]}>
                             <div style={this.state.catched.includes(data["id"]) ? { backgroundColor: 'green' } : this.state.escaped.includes(data["id"]) ? { backgroundColor: 'red' } : {}}>
-                                <h2>{data["id"]+1}</h2>
+                                <h2>{data["id"] + 1}</h2>
                                 <img src={this.state.pokemons[idx]} alt={"poke-preview"} style={{ width: "100px", height: "100px" }} />
                                 <p>Let's Catch him !</p>
                                 <button onClick={() => {
@@ -87,8 +115,8 @@ class World extends Component {
                                 </button>
                             </div>
                         </Popup>
-                        
-                        
+
+
                     })}
                 </Map>
             </div>

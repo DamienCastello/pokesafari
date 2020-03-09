@@ -17,13 +17,15 @@
 - you can navigate through the pokedex with a button on the top left corner of the map.
 - you can see the pokemon encountered in pokedex and details only on pokemons captured or escaped.
 - you can navigate through the map with a button on the left of the pokedex.
+- exit browser drop the save progression for the moment.
 
 
 ## Next upgrade :
 
-- Persist storage to keep a save.
+- persist storage to keep a save.
 - upgrade of capture system.
 - upgrade architecture of app (folders and files).
+- use localStorage to rehydrate localStorage.
 
 
 ## Bugs to fix : 

@@ -11,3 +11,26 @@
   border-radius: 10px;
   box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
 }
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #808182;
+  background-image: url("https://www.transparenttextures.com/patterns/black-felt.png");
+  border: 2px ridge grey;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.poke-btn {
+  margin-right: 20px;
+  width: 100px;
+}

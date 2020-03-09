@@ -8,8 +8,6 @@ class PokedexButton extends Component {
     render() {
         this.props.updateCatched(this.props.catched);
         this.props.updateEscaped(this.props.escaped);
-        console.log(this.props);
-        console.log("CURRENT REDUX STATE IN BUTTON:", store.getState());
         return (
             <div>
                 <button onClick={this.props.redirectPokedex}>

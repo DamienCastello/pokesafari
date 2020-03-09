@@ -31,8 +31,12 @@ class PokeCell extends Component {
     let id = this.props.id;
     //Need to compare only strings
     id = (id-1).toString();
-    localStorage["catched"].split(",").map((catched) => catched === id ? unknown = true : unknown);
-    localStorage["escaped"].split(",").map((escaped) => escaped === id ? unknown = true : unknown);
+    if(localStorage.getItem('catched')!==null){
+      localStorage.getItem('catched').split(",").map((catched) => catched === id ? unknown = true : unknown);
+    }
+    if(localStorage.getItem('escaped')!==null){
+      localStorage.getItem('escaped').split(",").map((escaped) => escaped === id ? unknown = true : unknown);
+    }
     return (
     //conditional rendering on unknown boolean
       <div>

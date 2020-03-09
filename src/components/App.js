@@ -9,26 +9,26 @@ import { connect } from 'react-redux';
 
 
 
-
-
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      ready: false
+    };
   };
 
+
   render() {
-    console.log("CURRENT REDUX STATE:", store.getState());
-    console.log("PROPS FROM APP:", this.props)
-    return (
-      <div className="App">
-        <Switch>
-          <Route path="/pokedex" component={Pokedex}/>
-          <Route path="/pokemon/:id" component={Pokemon}/>
-          <Route path="/" component={World} />
-        </Switch>
-      </div>
-    )
+  
+      return (
+        <div className="App">
+          <Switch>
+            <Route path="/pokedex" component={Pokedex}/>
+            <Route path="/pokemon/:id" component={Pokemon}/>
+            <Route path="/" component={World} />
+          </Switch>
+        </div>
+      )
   }
 }
 
