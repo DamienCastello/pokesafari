@@ -6,10 +6,11 @@ import Axios from 'axios';
 import url from '../../utils/url';
 import PokedexButton from '../pokemon/PokedexButton';
 import RestartButton from '../pokemon/RestartButton';
+
 import { updateCatched } from '../../store/actions/catched';
 import { updateEscaped } from '../../store/actions/escaped';
-
 import { connect } from 'react-redux';
+
 
 class World extends Component {
     constructor() {
@@ -82,17 +83,15 @@ class World extends Component {
                         maxZoom='19'
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                     {PokemonsLocation.map((pokemonLocation, idx) => {
+                        //Need to apply style on marker to change icon in order to get icon from pokeClass img and avoid overloading request ...
                         return (
                             <Marker
                                 key={idx + 1}
                                 position={pokemonLocation}
                                 onClick={() => {
                                     Axios.get(`${url.pokemonUrl}/${idx + 1}`)
-                                        .then(response => {
-                                            console.log(response, response.data)
-                                            this.setState({ pokemons: [response.data.sprites.front_default, ...this.state.pokemons], markerIds: [response.data.id, ...this.state.markerIds] })
-                                        })
-                                        .catch(err => console.log(err))
+                                        .then(response => { this.setState({ pokemons: [response.data.sprites.front_default, ...this.state.pokemons]/*, markerIds: [response.data.id, ...this.state.markerIds]*/ }) })
+                                        .catch(err => { console.log(err) })
                                     this.setState({
                                         activePokemon: [{ id: idx, location: pokemonLocation }, ...this.state.activePokemon],
                                     })

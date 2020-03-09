@@ -26,6 +26,7 @@
 - upgrade of capture system.
 - upgrade architecture of app (folders and files).
 - use localStorage to rehydrate localStorage.
+- replace icon of markers by pokemon icons from sprite image (pokeClasse.js)
 
 
 ## Bugs to fix : 
