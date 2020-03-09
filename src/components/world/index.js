@@ -19,32 +19,37 @@ class World extends Component {
             pokemons: [],
             catched: [],
             escaped: [],
+            markerIds: [],
         };
     }
 
     redirectPokedex = () => {
+        let catched = [];
+        let escaped = [];
 
-
-
-        if (this.state.catched.length > 0) {
-            if (localStorage.getItem("catched") !== null) {
-                localStorage.setItem("catched", `${localStorage.getItem("catched")},${this.state.catched}`)
-            }
-            localStorage.setItem('catched', this.state.catched)
+        if (this.state.catched.length > 0 && localStorage.getItem("catched") !== null) {
+            //Merge current encouter to localStorage
+            catched = localStorage.getItem('catched').split(",");
+            this.state.catched.map((el) => { catched.push(el.toString()) })
+            localStorage.setItem('catched', catched)
+        } else if (this.state.catched.length > 0 && localStorage.getItem("catched") === null) {
+            //Keep informations of localStorage if no encounter
+            catched = this.state.catched
+            localStorage.setItem('catched', catched)
         }
 
-
-
-        if (this.state.escaped.length > 0) {
-            if (localStorage.getItem("escaped") !== null) {
-                localStorage.setItem("escaped", localStorage.getItem("escaped") + "," + (this.state.escaped))
-            }
-            localStorage.setItem('escaped', this.state.escaped)
+        if (this.state.escaped.length > 0 && localStorage.getItem("escaped") !== null) {
+            //Merge current encouter to localStorage
+            escaped = localStorage.getItem('escaped').split(",");
+            this.state.escaped.map((el) => { escaped.push(el.toString()) })
+            localStorage.setItem('escaped', escaped)
+        } else if (this.state.escaped.length > 0 && localStorage.getItem("escaped") === null) {
+            //Keep informations of localStorage if no encounter
+            escaped = this.state.escaped
+            localStorage.setItem('escaped', escaped)
         }
-        //localStorage.setItem('catched', localStorage.getItem("catched") === null ? this.state.catched : localStorage.getItem("catched") + "," + (this.state.catched));
-        //localStorage.setItem('escaped', localStorage.getItem("escaped") === null ? this.state.escaped : localStorage.getItem("escaped") + "," + (this.state.escaped));
+
         this.props.history.push('/pokedex');
-
     };
 
     restart = () => {
@@ -84,7 +89,8 @@ class World extends Component {
                                 onClick={() => {
                                     Axios.get(`${url.pokemonUrl}/${idx + 1}`)
                                         .then(response => {
-                                            this.setState({ pokemons: [response.data.sprites.front_default, ...this.state.pokemons] })
+                                            console.log(response, response.data)
+                                            this.setState({ pokemons: [response.data.sprites.front_default, ...this.state.pokemons], markerIds: [response.data.id, ...this.state.markerIds] })
                                         })
                                         .catch(err => console.log(err))
                                     this.setState({
@@ -96,8 +102,14 @@ class World extends Component {
 
                     {this.state.activePokemon.map((data, idx) => {
                         let random = Math.random();
-                        //FIX BUG HERE: Need to make keys unique but template string always interprets values ...
-                        return <Popup key={data["id"]} position={data["location"]}>
+                        //FIX BUG HERE: Need to make keys unique but template string always interprets values of key
+                        /*------------------------------------------------------------------------------------------
+                        This condition should work but doesn't ...
+                        if(this.state.markerIds.includes(data["id"]+1)===false){
+                            --> return the popup
+                        }
+                        -------------------------------------------------------------------------------------------*/
+                        return <Popup key={`id${data["id"]}encounter`} position={data["location"]}>
                             <div style={this.state.catched.includes(data["id"]) ? { backgroundColor: 'green' } : this.state.escaped.includes(data["id"]) ? { backgroundColor: 'red' } : {}}>
                                 <h2>{data["id"] + 1}</h2>
                                 <img src={this.state.pokemons[idx]} alt={"poke-preview"} style={{ width: "100px", height: "100px" }} />
@@ -115,8 +127,6 @@ class World extends Component {
                                 </button>
                             </div>
                         </Popup>
-
-
                     })}
                 </Map>
             </div>
